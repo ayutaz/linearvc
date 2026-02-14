@@ -45,7 +45,6 @@ class LinearVC(nn.Module):
                 wav,
                 orig_freq=sr,
                 new_freq=self.sr,
-                trigger_level=vad_trigger_level,
             )
 
         # Trim silence at beginning (if specified)
@@ -121,7 +120,7 @@ class LinearVC(nn.Module):
             from numpy import linalg
 
             W, _, _, _ = linalg.lstsq(
-                source_features.cpu(), linear_target.cpu(), rcond=None
+                source_features.cpu().numpy(), linear_target.cpu().numpy(), rcond=None
             )
         else:
             import celer
